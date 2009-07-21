@@ -1,0 +1,9 @@
+$.modal.close();
+$("#product_<%= @product.id %>").fadeOut(function() { $(this).remove() });
+
+$('#category_tree .product_<%= @product.id %>').each(function() {
+	$.tree_reference('category_tree').remove($(this).parent());
+});
+
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });
+

@@ -1,0 +1,23 @@
+<div id="green_toolbar" class="blue_toolbar" <%= "style=\"display:none;\"" unless current_engine == :green %>>
+	<ul id="green_logo" class="blue_logo"><li class="green_logo">green<span>commerce</span></li></ul>
+	
+	<% if logged_in? %>
+
+		<ul id="green_admin_navigation" class="blue_admin_navigation">
+			<li <%= (controller.class.to_s =~ /.*catalog.*/i ? "class=\"current\"" : "") %>><a href="/admin/catalog">Catalog</a></li>
+			<li <%= (controller.class.to_s =~ /.*orders.*/i ? "class=\"current\"" : "") %>><a href="/admin/orders">Orders</a></li>
+			<li <%= (controller.class.to_s =~ /.*content.*/i ? "class=\"current\"" : "") %>><a href="/admin/content">Content</a></li>
+			<li <%= (controller.class.to_s =~ /.*salestaxrates.*/i ? "class=\"current\"" : "") %>><a href="/admin/sales_tax_rates">Sales Tax Rates</a></li>
+		</ul>
+	
+		<div id="blue_account" class="blue_account">
+			<%= image_tag current_admin_user.photo.url(:icon) %>
+			<div>
+			Logged In As:<br />
+			<span class="name"><%= current_admin_user.fullname %></span>
+			<%= link_to "Logout", admin_session_url, :method => :delete %>
+			</div>
+		</div>
+
+	<% end %>
+</div>

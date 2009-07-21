@@ -1,0 +1,11 @@
+<h1>Edit Category</h1>
+
+<% form_for @category, :url => admin_category_path(@category), :html => {:multipart => true} do |f| %>
+
+<%= render :partial => 'form', :locals => {:f => f} %>
+
+<div class="buttons">
+<input type="submit" value="Update" class="button submit" /> | <a href="#cancel" class="close">Cancel</a>
+</div>
+
+<% end %>

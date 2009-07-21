@@ -1,0 +1,19 @@
+<%= javascript_include_tag "wymeditor/jquery.wymeditor.js", :cache => false, :plugin => "blue" %>
+<%= javascript_include_tag('admin/content', :plugin => "green")%>
+
+<div id="content_admin">
+	<h1>Content</h1>
+
+	<%= form_tag :action => :update %>
+
+	<div class="block">
+	<h2>Email Verbiage for Receipt</h2>
+	<% email_verbiage :receipt, {:edit => true} do %>
+	<p>Thank you for your purchase.</p>	
+	<% end %>
+	</div>
+	<p>
+	<input type="submit" value="Save All Content" />
+	</p>
+	</form>
+</dov>

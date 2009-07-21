@@ -1,0 +1,27 @@
+<h1>Orders</h1>
+
+<div id="orders">
+<table>
+	<thead>
+		<tr>
+			<td>ID</td>
+			<td>Order Number</td>
+			<td>Date</td>
+			<td>Name</td>
+			<td>Total</td>
+		</tr>
+	</thead>
+	<tbody>
+		<% @orders.each do |order| %>
+		<tr class="<%= cycle "alt", "" %>">
+			<td><%= order.id %></td>
+			<td><%= link_to order.order_number, [:admin, order] %></td> 
+			<td><%= order.created_at.localtime.strftime("%B, %d %Y %I:%M %p") %></td>
+			<td><%= order.billing_address.lastname %>, <%= order.billing_address.firstname %></td>
+			<td>$<%= order.total %></td>
+		</tr>	
+		<% end %>
+	</tbody>
+</table>
+<%= will_paginate @posts %>
+</div>

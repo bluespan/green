@@ -1,0 +1,31 @@
+<h1>Create Product</h1>
+
+<% form_for :product, @product, :url => admin_products_path, :html => {:multipart => true} do |f| %>
+
+<%= render :partial => 'form', :locals => {:f => f} %>
+
+<% if @product.product_attribute_configs.length > 0 %>
+<div id="attributes">
+	<fieldset>
+		<legend><em>5</em>Attributes</legend>
+		<p>After you have created the product you can add options to each attribute.</p>
+		
+		
+		<ul>
+			<% @product.product_attributes.each do |attribute| %>
+			<li><%= attribute.name %></li>
+			<% end %>
+		</ul>
+
+	</fieldset>
+</div>
+<% end %>
+
+<div class="buttons">
+<input type="submit" value="Create" class="button submit" /> | <a href="#cancel" class="close">Cancel</a>
+</div>
+
+<input type="hidden" name="position" value="<%= @position %>" />
+<input type="hidden" name="ref_id" value="<%= @ref_id %>" />
+
+<% end %>

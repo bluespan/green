@@ -1,0 +1,7 @@
+
+<% if @product %>
+$.tree_reference('category_tree').create({ attributes: { id : "li_category_<%= @category.id %>", rel: "product", mdata: "{type: \"product\"}" }, data: "<%= @product.name %>"}, $("#li_category_<%= @reference_category.id%>"), "<%= @position %>");
+$("#li_category_<%= @category.id %>").find("a").attr("id", "category_<%= @category.id %>").addClass("product_<%= @product.id %>").addClass("product");
+<% end %>
+
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });

@@ -1,0 +1,5 @@
+<li class="product <%= product.css_class %> product_list_product" id="product_<%= product.id %>" rel="product"><span class="name"><%= product.name %></span> <span class="tools">
+
+	<%= link_to "Edit Attributes", edit_admin_product_path(product), :class => "edit_attributes" %> | <%= link_to "Discontinue", admin_product_path(product), :class => "delete" %>
+
+</span></li>

@@ -1,0 +1,40 @@
+
+<%= javascript_include_tag('jquery/jsTree/source/_lib')%>
+<%= javascript_include_tag('jquery/jsTree/source/tree_component')%>
+<%= stylesheet_link_tag('/javascripts/jquery/jsTree/source/tree_component.css') %>
+<%= javascript_include_tag('admin/products', :plugin => "green")%>
+<%= javascript_include_tag('admin/categories', :plugin => "green")%>
+
+<%= javascript_include_tag "wymeditor/jquery.wymeditor.js", :cache => false, :plugin => "blue" %>
+<%= javascript_include_tag "wymeditor/plugins/blue/jquery.wymeditor.blue.image_dialog.js", :cache => false, :plugin => "blue" %>
+<%= javascript_include_tag "wymeditor/plugins/blue/jquery.wymeditor.blue.link_dialog.js", :cache => false, :plugin => "blue" %>
+
+<div id="products">
+	<h2>
+		<span class="buttons"><a href="/admin/products/new" class="new new_product" id="new_product_button">Create Product</a></span>
+		Products
+	</h2>
+	<div id="search">
+		<h3>Search</h3>
+		<label for="search_box">Title</label>
+		<input type="text" name="search" id="search_box" />
+	</div>
+	<ul class="list" id="product_list">
+		<%= render :partial => "product", :collection => @products %>
+	</ul>
+</div>
+
+<div id="categories">
+	<h2>
+		<span class="buttons"><a href="/admin/categories/new" class="new new_category" id="new_category_button" rel="category">Create Category</a></span>
+		Categories
+	</h2>
+	
+	<div class="tree" id="category_tree">
+	<%= nested_set_list_for :class => "", :id => "category_tree_ul", 
+                          :partial => "category", :collection => Category.roots %>
+	</div>
+
+</div>
+
+<div class="dialog" id="new_product_dialog"></div>

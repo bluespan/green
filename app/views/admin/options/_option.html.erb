@@ -1,0 +1,64 @@
+<% option_id = option.id || "new_#{option.object_id}" %>
+<div id="position_<%= option_id %>" class="option">
+   <h3><a href="#"><span class="price"><%= option.price %></span><span class="part_number"><%= option.part_number %></span><span class="name"><%= option.name %></span></a></h3>
+   <div>
+   	<fieldset>
+	
+	<div class="single_line">
+	<label for="option_<%= option_id %>_name">Name</label>
+	<input type="text" name="option[<%= option_id %>][name]" id="option_<%= option_id %>_name" class="text name" value="<%= option.name %>">
+	</div>
+	
+	<div class="single_line">
+	<label for="option_<%= option_id %>_description">Description</label>
+	<textarea name="option[<%= option_id %>][description]" id="option_<%= option_id %>_description"></textarea>
+	</div>
+	
+	<div class="single_line">
+	<label for="option_<%= option_id %>_photo">Photo<br /><%= image_tag option.photo.url if option.photo? %></label>
+	<input type="file" class="file" name="option[<%= option_id %>][photo]" id="option_<%= option_id %>_photo" size="18"/>
+	</div>
+	
+	<div class="single_line">
+   	<label for="option_<%= option_id %>_part_number">Part Number</label>
+	<input type="text" name="option[<%= option_id %>][part_number]" id="option_<%= option_id %>_part_number" class="text part_number" value="<%= option.part_number %>">
+	</div>
+
+	<div class="single_line">
+   	<label for="option_<%= option_id %>_price">Price</label>
+	<input type="text" name="option[<%= option_id %>][price]" id="option_<%= option_id %>_price" class="text price" value="<%= option.price %>">
+	</div>
+
+	<div class="single_line">
+	<label for="option_<%= option_id %>_shipping">Shipping</label>
+	<input type="text" name="option[<%= option_id %>][shipping]" id="option_<%= option_id %>_shipping" class="text" value="<%= option.shipping %>">
+	</div>
+
+	<div class="single_line">
+	<label for="option_<%= option_id %>_weight">Weight</label>
+	<input type="text" name="option[<%= option_id %>][weight]" id="option_<%= option_id %>_weight" class="text" value="<%= option.weight %>">
+	</div>
+	
+	<% if @attribute.allow_file_upload? or @attribute.allow_text_input? %>
+	<div class="single_line">
+		<% if @attribute.allow_file_upload?  %>
+		<label for="option_<%= option_id %>_allow_file_upload">Allow File Upload</label>
+		<input type="checkbox" name="option[<%= option_id %>][allow_file_upload]" id="option_<%= option_id %>_allow_file_upload"   <%= "checked" if option.allow_file_upload? %> value="1">
+		<input type="hidden" class="hidden" name="option[<%= option_id %>][allow_file_upload]" value="0">
+		<% end %>
+		
+		<% if @attribute.allow_text_input? %>
+		<label for="option_<%= option_id %>_allow_text_input">Allow Text Input</label>
+		<input type="checkbox" name="option[<%= option_id %>][allow_text_input]" id="option_<%= option_id %>_allow_text_input" <%= "checked" if option.allow_text_input? %> value="1">
+		<input type="hidden" class="hidden" name="option[<%= option_id %>][allow_text_input]" value="0">
+		<% end %>
+	</div>
+	<% end %>
+	
+	<div class="single_line">
+	<label for="option_<%= option_id %>_discontinued">Discontinued</label>
+	<input type="checkbox" name="option[<%= option_id %>][discontinued]" id="option_<%= option_id %>_discontinued"  value="1">
+	</div>
+	</fieldset>
+   </div>
+</div>

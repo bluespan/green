@@ -1,0 +1,9 @@
+product_dialog.load("<%= edit_admin_product_path(@product) %>");
+$("#product_list").prepend("<%= escape_javascript(render :partial => 'admin/catalog/product', :locals => {:product => @product}) %>")
+bind_products("#product_<%= @product.id %>");
+$("#product_<%= @product.id %>").fadeIn();
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });
+
+<% unless @position.blank? && @ref_id.blank? %>
+move_category(<%= @product.id %>, <%= @ref_id %>, "<%= @position %>", "product");
+<% end %>

@@ -1,0 +1,34 @@
+<div class="left_column">
+	<fieldset>
+		<legend><em>1</em> Basic Information</legend>
+		<div class="single_line">
+		<label for="category_name">Name</label>
+		<%= f.text_field :name, :class => "text" %>
+		</div>
+
+		<div class="single_line">
+		<label for="category_slug">Url Slug</label>
+		<%= f.text_field :slug, :class => "text" %>
+		</div>
+
+		<div class="single_line">
+		<label for="category_live">Live</label>
+		<%= f.check_box :live %>
+		</div>
+		
+		<label for="category_description" id="description" class="single_line">Description <a href="#" class="edit">Edit</a></label>
+		<div id="category_description_readable"><%= @category.description %></div>
+		<%= f.hidden_field :description, :name => "category[description]", :id => "category_description", :class => "hidden"%>
+		
+	</fieldset>
+</div>
+
+<div class="right_column">
+	<div class="two_lines">
+		<fieldset>
+			<legend><em>2</em> Image</legend>
+		<%= image_tag @category.photo.url %><br /><br />
+		<%= f.file_field :photo, :size => "20", :name => "category[photo]", :id => "category_photo" %>
+		</fieldset>
+	</div>
+</div>

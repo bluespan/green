@@ -1,0 +1,28 @@
+<h1>Edit Product</h1>
+
+<% form_for @product, :url => admin_product_path(@product), :html => {:multipart => true} do |f| %>
+
+<%= render :partial => 'form', :locals => {:f => f} %>
+
+<% if @product.product_attribute_configs.length > 0 %>
+<div id="attributes">
+	<fieldset>
+		<legend><em>5</em>Attributes</legend>
+		<p>Edit the options for each attribute.</p>
+		
+		
+		<ul>
+			<% @product.product_attribute_configs.each do |attribute| %>
+			<li><span class="tools"><a href="products/<%= @product.id %>/attributes/<%= attribute[:name] %>" class="edit">Edit</a></span><%= attribute[:name].to_s.gsub("_", " ") %></li>
+			<% end %>
+		</ul>
+
+	</fieldset>
+</div>
+<% end %>
+
+<div class="buttons">
+<input type="submit" value="Update" class="button submit" /> | <a href="#cancel" class="close">Cancel</a>
+</div>
+
+<% end %>

@@ -1,0 +1,5 @@
+$.modal.close();
+$.tree_reference('category_tree').create({ attributes: { id : "li_category_<%= @category.id %>", rel: "category", mdata: "{type: \"category\"}" } , data: "<%= @category.name %>"}, <%= !@ref_id.blank? ? "$(\"#category_#{@ref_id}\")" : "-1" %>,"<%= @position.blank? ? "inside" : @position %>");
+$("#li_category_<%= @category.id %>").find("a").attr("id", "category_<%= @category.id %>").addClass("category");
+
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });

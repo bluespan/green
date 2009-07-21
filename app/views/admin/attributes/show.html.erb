@@ -1,0 +1,20 @@
+
+<h1>Attribute: <%= @attribute.name %></h1>
+
+
+<form id="add_option" action="/admin/products/<%= @product.id %>/attributes/<%= @attribute.name %>/options/add">
+	<div class="single_line">
+	<input type="text" name="new_option[name]" class="text unfocused" value="New Option Name" id="new_option_name" />
+	<input type="submit" name="add" value="Add Option" class="button" />
+	</div>
+</form>
+
+<form id="options" action="/admin/products/<%= @product.id %>/attributes/<%= @attribute.name %>/options/update" method="post" enctype="multipart/form-data">
+	<input type="hidden" class="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
+	<div class="accordion">
+		<%= render :partial => 'admin/options/option', :collection => @product.options.of_attribute(@attribute.name) %>
+	</div>
+	<div class="buttons">
+		<input type="submit" value="Save Options" name="save" class="button" /> | <a href="#" class="cancel">Cancel</a>
+	</div>
+</form>

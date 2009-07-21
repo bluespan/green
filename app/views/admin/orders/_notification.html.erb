@@ -1,0 +1,6 @@
+<li>
+	<h3><span class="date"><%= notification.created_at.localtime.strftime("%B, %d %Y %I:%M %p %Z") %></span><%= notification.title %></h3>
+	<div class="body">
+	<%= notification.comment %>
+	</div>
+</li>

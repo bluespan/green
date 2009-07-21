@@ -1,0 +1,111 @@
+<%= javascript_include_tag "wymeditor/jquery.wymeditor.js", :cache => false, :plugin => "blue" %>
+<%= javascript_include_tag('admin/orders', :plugin => "green")%>
+<div id="order">
+<h1><span class="date"><%= @order.created_at.localtime.strftime("%B, %d %Y %I:%M %p %Z") %></span>Order Summary: #<%= @order.order_number %></h1>
+
+<div class="billing_address address">
+<h3>Billing Address</h3>
+<%= @order.billing_address.firstname %> <%= @order.billing_address.lastname %><br />
+<%= @order.billing_address.street %><br />
+<%= "#{@order.billing_address.street2} <br />" unless @order.billing_address.street2.blank? %>
+<%= @order.billing_address.city %>, <%= @order.billing_address.state %> <%= @order.billing_address.postal_code %>
+<br />
+<%= @order.email %> <%= link_to "Notify", new_admin_order_notification_url(@order), :class => "notify_customer"%>
+</div>
+
+<div class="shipping_address address">
+<h3>Shipping Address</h3>
+<%= @order.shipping_address.firstname %> <%= @order.shipping_address.lastname %><br />
+<%= @order.shipping_address.street %><br />
+<%= "#{@order.shipping_address.street2} <br />" unless @order.shipping_address.street2.blank? %>
+<%= @order.shipping_address.city %>, <%= @order.shipping_address.state %> <%= @order.shipping_address.postal_code %>
+</div>
+
+<div class="payment">
+<h3>Payment Information</h3>
+<% @order.transactions.each do |transaction| %>
+	<%= transaction.action.capitalize %>: <%= transaction.reference %><br />
+<% end %>
+</div>
+
+<table class="cart order">
+	<thead>
+		<tr>
+			<td class="product_image"></td>
+			<td class="product"></td>
+			<td class="qty">Qty</td>
+			<td class="price">Price</td>
+		</tr>
+	</thead>
+	<tbody>
+		<% @order.line_items.each do |item| %>
+		<tr class="<%= cycle "", "alt" %>">
+			<td class="product_image"><%= image_tag item.product.photo(:cart) %></td>
+			<td class="product">
+				<div>
+					<h2><%= item.product.name %></h2>
+					
+					<% unless item.product.configuration.empty? %>
+					<dl>
+						<% item.product.product_attributes_with_options.each do |attribute| %>
+						<dt><%= attribute.display_name %>:</dt> 
+						<dd>
+						<% item.product.configuration[attribute.name].each do |option| %>
+							<%= option.name %>
+							
+								<% if option.attachments.size > 0 %>
+									<% option.attachments.each do |attachment| %>
+									<%= "<span class=\"text_input\">#{(h attachment.text_input).gsub("\n", "<br />")}</span>" if attachment.text_input?%>
+									<%= link_to("#{image_tag(attachment.file.url(:thumbnail))} #{attachment.file_file_name}", attachment.file.url) if attachment.file?%>
+									<% end %>
+								<% end %>
+						<% end %>		
+						</dd>
+
+						<% end %>
+					</dl>
+					<% end %>
+				</div>
+
+			</td>
+			<td class="qty"><%= item.quantity %></td>
+			<td class="price">$<%= item.subtotal %></td>
+		</tr>
+		<% end %>
+	</tbody>
+	<tfoot>
+		<tr class="subtotal">
+			<td class="product_image"></td>
+			<td class="product">Sub Total</td>
+			<td class="qty"><%= @order.quantity %></td>
+			<td class="price">$<%= @order.subtotal %></td>
+		</tr>
+		<tr class="tax alt">
+			<td class="product_image"></td>
+			<td class="product">Tax</td>
+			<td class="qty"></td>
+			<td class="price">$<%= @order.tax %></td>
+		</tr>
+		<tr class="shipping">
+			<td class="product_image"></td>
+			<td class="product">Shipping</td>
+			<td class="qty"></td>
+			<td class="price">$<%= @order.shipping %></td>
+		</tr>
+		<tr class="total alt">
+			<td class="product_image"></td>
+			<td class="product">Total</td>
+			<td class="qty"><%= @order.quantity %></td>
+			<td class="price">$<%= @order.total %></td>
+		</tr>
+	</tfoot>
+</table>
+
+<h1>Notifications <span class="tools"><%= link_to "Create New", new_admin_order_notification_url(@order), :class => "notify_customer"%></span></h1>
+<ul id="notifications">
+	<% @order.comments.each do |notification| %>
+		<%= render :partial => "notification", :locals => {:notification => notification} %>
+	<% end %>
+</ul>
+
+</div>

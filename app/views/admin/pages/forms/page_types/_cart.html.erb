@@ -1,0 +1,34 @@
+
+<div class="left_column">
+<fieldset>
+	<legend><em>2</em>Page Configuration</legend>
+	<p>Second, configure the page including the <em>title</em> and <em>url slug</em>.</p>
+	<label for="page_title" style="width:24px;">Title</label>
+	<%= f.text_field :title, :name => "page[title]", :id => "page_title" %>
+
+	<label for="page_slug" style="width:24px;">Slug</label>
+	<strong>cart</strong>
+
+	<label for="page_template_file">Template</label>
+	<strong>Cart</strong>
+</fieldset>
+
+<fieldset>
+	<legend>Meta Data</legend>
+	<label for="page_meta_keywords">Meta Keywords</label>
+	<%= f.text_field :meta_keywords, :name => "page[meta_keywords]", :id => "page_meta_keywords"%>
+
+	<label for="page_meta_description">Meta Description</label>
+	<%= f.text_area :meta_description, :name => "page[meta_description]", :id => "page_meta_description" %>
+</fieldset>
+</div>
+
+<div class="right_column">
+	<fieldset>
+		<legend>Permissions</legend>
+		<ul class="permissions checkbox">
+			<li><%= f.check_box :members_only, :name => "page[members_only]", :id => "page_members_only"  %> <label for="page_members_only">Members Only</label></li>
+		</ul>
+		
+	</fieldset>	
+</div>

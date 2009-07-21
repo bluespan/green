@@ -1,0 +1,10 @@
+$.modal.close();
+$("#product_<%= @product.id %>").replaceWith("<%= escape_javascript(render :partial => 'admin/catalog/product', :locals => {:product => @product}) %>")
+bind_products("#product_<%= @product.id %>");
+$("#product_<%= @product.id %>").hide();
+$("#product_<%= @product.id %>").fadeIn();
+
+$('#category_tree .product_<%= @product.id %>').text("<%= @product.name %>");
+
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });
+

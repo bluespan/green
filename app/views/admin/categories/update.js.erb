@@ -1,0 +1,3 @@
+$.modal.close();
+$("#category_<%= @category.id %>").text("<%= @category.name %>");
+$.jGrowl("<%= escape_javascript(flash[:notice]) %>", { header: 'Success', theme:'success' });

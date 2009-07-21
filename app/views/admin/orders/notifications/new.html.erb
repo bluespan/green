@@ -1,0 +1,10 @@
+<div id="notfication_form">
+<h1>Notify Customer</h1>
+<% form_for @notification, :url =>  {:action=>"create", :controller=>"admin/orders/notifications"} do |f|%>
+	
+	<label for="comment_title" style="float:left;width:5%;line-height:24px;">Subject</label>
+	<input type="text" id="comment_title" name="comment[title]" style="width:94%;float:right;" />
+	<textarea class="wymeditor" id="comment_comment" name="comment[comment]"></textarea>
+	<input type="submit" value="Send Notification"> | <a href="#" class="cancel">Cancel</a>
+<% end %>
+</div>

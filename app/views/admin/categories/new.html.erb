@@ -1,0 +1,14 @@
+<h1>Create Category</h1>
+
+<% form_for :category, @category, :url => admin_categories_path, :html => {:multipart => true} do |f| %>
+
+<%= render :partial => 'form', :locals => {:f => f} %>
+
+<div class="buttons">
+<input type="submit" value="Create" class="button submit" /> | <a href="#cancel" class="close">Cancel</a>
+</div>
+
+<input type="hidden" name="position" value="<%= @position %>" />
+<input type="hidden" name="ref_id" value="<%= @ref_id %>" />
+
+<% end %>

@@ -1,0 +1,7 @@
+<p>A new order has been placed.</p> 
+
+<p>Order #<%= @order.order_number %>.</p>
+
+<p><%= @order.billing_address.firstname %> <%= @order.billing_address.lastname %></p>
+
+<p>Total: $<%= @order.total %> - <%= @order.quantity %> Item<%= "s" if @order.quantity > 1 %></p>

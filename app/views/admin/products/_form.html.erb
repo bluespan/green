@@ -1,0 +1,68 @@
+
+<div class="producttype">
+	<fieldset>
+		<legend><em>1</em>Product Type</legend>
+		<p>First select <em>type</em> of product this is going to be.</p>
+	
+		<% if Product.types.size > 1 %>
+		<select name="product[type]" id="product_type">
+			<% if @product.class == Product %>
+			<option value=""></option>
+			<% end %>
+		
+			<% Product.types.each do |product_type| -%>
+			<option value="<%= product_type.to_s %>" <%= @product.class.to_s == product_type.to_s ? "selected" : "" %>><%= product_type.type_name %></option>
+			<% end -%>
+		</select>	
+		<% else %>
+		<input type="hidden" name="product[type]" id="product_type" value="<%= Product.types.first %>" /><strong><%= Product.types.first.type_name %></strong>
+		<% end %>
+	</fieldset>
+</div>
+
+<div id="page_type_form">
+	<div class="left_column">
+	<fieldset>
+		<legend><em>2</em>Product Configuration</legend>
+		<p>Second, configure the product including the <em>name</em>, <em>price</em> and <em>url slug</em>.</p>
+		<label for="product_name">Name</label>
+		<%= f.text_field :name, :size => 20, :name => "product[name]", :id => "product_name", :class => "text" %>
+
+		<label for="product_name">Slug</label>
+		<%= f.text_field :slug, :size => 20, :name => "product[slug]", :id => "product_slug", :class => "text" %>
+	</fieldset>
+	<fieldset>
+		<legend><em>3</em>Base Configuration</legend>
+		<p>Configure the base price, shipping, weight for this product if there are any.</p>
+		<label for="product_base_price">Price</label>
+		<%= f.text_field :base_price, :size => 20, :name => "product[base_price]", :id => "product_base_price", :class => "text" %>
+
+		<label for="product_base_part_number">Part Number</label>
+		<%= f.text_field :base_part_number, :size => 20, :name => "product[base_part_number]", :id => "base_part_number", :class => "text" %>
+
+		<label for="product_base_shipping">Shipping</label>
+		<%= f.text_field :base_shipping, :size => 20, :name => "product[base_shipping]", :id => "product_base_shipping", :class => "text" %>
+
+		<label for="product_base_weight">Weight</label>
+		<%= f.text_field :base_weight, :size => 20, :name => "product[base_weight]", :id => "product_base_weight", :class => "text" %>
+
+		<label for="product_description" id="description" class="single_line">Description <a href="#" class="edit">Edit</a></label>
+		<div id="product_description_readable"><%= @product.description %></div>
+		<%= f.hidden_field :description, :name => "product[description]", :id => "product_description", :class => "hidden"%>
+	
+
+	</fieldset>
+	</div>
+	
+	<div class="images">
+		<fieldset>
+			<legend><em>4</em>Product Photo</legend>
+			<div class="two_lines">
+			<%= image_tag @product.photo.url %><br /><br />
+			<%= f.file_field :photo, :size => "20", :name => "product[photo]", :id => "product_photo" %>
+			</div>
+
+		</fieldset>
+	</div>
+</div>
+

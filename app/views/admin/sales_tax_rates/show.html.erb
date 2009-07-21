@@ -1,0 +1,27 @@
+<h1>Sales Tax Rates<h1>
+	
+<% form_for '/admin/sales_tax_rates' do  %>	
+<input type="hidden" name="_method" value="put">
+<table id="sales_tax_rates">
+	<thead>
+		<tr>
+			<td>State</td>
+			<td>Rate</td>
+		</tr>
+	</thead>
+	<tbody>
+	<% states_for_select.each do |state, code| %>
+		<tr <%= "class=\"#{cycle "alt", ""}\""%>>
+			<td><%= "#{state} (#{code})" %></td>
+			<td><input type="text" name="sales_tax_rate[<%= code %>]" value="<%= SalesTaxRate[code].rate %>" /> %</td>
+		</tr>
+	<% end %>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="Save Rates"></td>
+		</tr>
+	</tfoot>
+</table>
+<% end %>
