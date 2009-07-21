@@ -8,3 +8,4 @@ require 'green'
 
 ActiveRecord::Base.send :include, Span::Green::ProductMethods
 
+Span::Blue::Routing.send :include, Span::Green::Routing
