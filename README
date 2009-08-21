@@ -4,10 +4,38 @@ Green
 Green is an e-commerce foundation built upon the Blue content management system foundation.
 
 
-Example
+Install
 =======
 
-Example goes here.
+0. Prerequisites:
 
+Rails 2.3+
+
+Blue CMS - https://github.com/bluespan/blue/tree/master
+
+script/plugin install git://github.com/danwrong/acts-as-money.git
+script/plugin install git://github.com/rails/ssl_requirement.git
+script/plugin install git://github.com/bluespan/stateselect.git
+script/plugin install git://github.com/markcatley/responds_to_parent.git
+
+1. Add as a submodule
+git submodule add git@github.com:bluespan/blue.git vendor/plugins/blue
+git submodule init
+git submodule update
+
+2. Bootstrap
+rake green:bootstrap
+
+3. Install gems
+
+Add to environment.rb
+
+config.gem 'alter_ego'
+config.gem 'activemerchant', :version => '1.4.1'
+
+rake gems:install
+
+4. Run Migrations
+rake db:migrate
 
 Copyright (c) 2009 Blue Span Associates, Inc.
