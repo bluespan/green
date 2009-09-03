@@ -50,7 +50,7 @@ namespace :green do
       desc "Copy configs"
       task :configs do
         print "** Copying configs... "
-        FileList["vendor/plugins/blue/config/initializers/green.rb"].each do |source|
+        FileList["vendor/plugins/green/config/initializers/green.rb"].each do |source|
             target = source.gsub("vendor/plugins/green", "")
             unless file_starts_with?(RAILS_ROOT+target, "# modified by green")
               print "#{target}... "
