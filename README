@@ -17,6 +17,7 @@ script/plugin install git://github.com/danwrong/acts-as-money.git
 script/plugin install git://github.com/rails/ssl_requirement.git
 script/plugin install git://github.com/bluespan/stateselect.git
 script/plugin install git://github.com/markcatley/responds_to_parent.git
+script/plugin install git://github.com/technoweenie/acts_as_paranoid.git
 
 1. Add as a submodule
 git submodule add git@github.com:bluespan/green.git vendor/plugins/green
