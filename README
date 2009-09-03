@@ -19,7 +19,7 @@ script/plugin install git://github.com/bluespan/stateselect.git
 script/plugin install git://github.com/markcatley/responds_to_parent.git
 
 1. Add as a submodule
-git submodule add git@github.com:bluespan/blue.git vendor/plugins/blue
+git submodule add git@github.com:bluespan/green.git vendor/plugins/green
 git submodule init
 git submodule update
 
