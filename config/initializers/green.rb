@@ -1,7 +1,10 @@
-Product.types = [ProductType::Simple]
+# Configure Product Types
+# Product.types = [ProductType::Simple]
 
+# Billing mode [:test]
 ActiveMerchant::Billing::Base.mode = :test
 
+# Gateway Parameters
 Span::Green::gateway_parameters = { :login    => "stevep_1245271523_biz_api1.gmail.com", 
                                     :password => "1245271536",
                                     :signature => "AOiHunDzrFnIaaBq7EVa4Y6vQbCyA2pAMVZHaJ.wgOgqmmKcN5-jagNI"}

@@ -3,6 +3,7 @@ class Admin::SalesTaxRatesController < Admin::GreenAdminController
   before_filter :find_model
   unloadable
 
+ 
   def update
     respond_to do |wants|
       params[:sales_tax_rate].each do |state, rate|
