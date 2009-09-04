@@ -1,7 +1,6 @@
-class GreenController < ApplicationController
+class GreenController < BlueController
   unloadable
   
-  helper Span::Helper
   helper_method :current_engine
   
   private

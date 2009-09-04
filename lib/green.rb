@@ -31,6 +31,7 @@ module Span
     
     mattr_accessor :gateway_parameters
     Span::included_engines << "green"
+    Span::admin_stylesheets[:green] = ["green"]
     
     module Routing
       

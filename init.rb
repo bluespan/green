@@ -7,5 +7,5 @@ require 'active_merchant'
 require 'green'
 
 ActiveRecord::Base.send :include, Span::Green::ProductMethods
-
 Span::Blue::Routing.send :include, Span::Green::Routing
+ActionController::Base.send :include, GreenHelper
