@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :cart, :controller => "cart", :collection => { :update_all => :put }
   map.resources :orders
 
-  namespace :admin do |admin|
+  map.namespace :admin do |admin|
     admin.resource :catalog, :controller => "catalog"
     admin.connect 'products/:product_id/attributes/:attribute_name', :controller => 'attributes', :action => 'show'
     admin.connect 'products/:product_id/attributes/:attribute_name/options/:action.:format', :controller => 'options'

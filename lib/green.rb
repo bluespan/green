@@ -1,4 +1,7 @@
 # Green
+
+require 'green/extensions/routes'
+
 module Span
   
   module Helper
@@ -27,6 +30,7 @@ module Span
   module Green #:nodoc:
     
     mattr_accessor :gateway_parameters
+    Span::included_engines << "green"
     
     module Routing
       
