@@ -138,8 +138,8 @@ body.admin  .dialog .errorExplanation {-moz-border-radius:6px 0 0 0 ;-webkit-bor
 body.admin  .dialog .errorExplanation h2 {-moz-border-radius:6px 0 0 0 ;-webkit-border-top-left-radius: 6px;border-radius:6px 0 0 0 ;}
 
 .dialog .content {padding:10px 10px 0;}
-body.admin_green .dialog .loading {background:url("/plugin_assets/green/images/ajax-loader.gif") no-repeat center center #fff;width:100%;height:100%;}
-body.admin_green  .trayDialog .loading {background:url("/plugin_assets/green/images/ajax-loader.gif") no-repeat center center #fff;width:100%;height:350px;}
+body.admin_green .dialog .loading {background:url("/imges/green/ajax-loader.gif") no-repeat center center #fff;width:100%;height:100%;}
+body.admin_green  .trayDialog .loading {background:url("/images/green/ajax-loader.gif") no-repeat center center #fff;width:100%;height:350px;}
 
 
 body.admin_green #admin_user_dialog .left_column a {color:#2B3B19;}

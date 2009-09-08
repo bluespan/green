@@ -1,5 +1,5 @@
+module GreenHelper::Admin::PagesHelper
   
-module Admin::PagesHelper
   def category_set_options
     class_or_item = Category.categories_only.roots
     items = Array(class_or_item)
@@ -11,4 +11,5 @@ module Admin::PagesHelper
     end
     result
   end
+  
 end
