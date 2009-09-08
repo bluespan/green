@@ -1,5 +1,5 @@
-<%= javascript_include_tag "wymeditor/jquery.wymeditor.js", :cache => false, :plugin => "blue" %>
-<%= javascript_include_tag('admin/orders', :plugin => "green")%>
+<%= javascript_include_tag "blue/wymeditor/jquery.wymeditor.js" %>
+<%= javascript_include_tag "green/admin/orders" %>
 <div id="order">
 <h1><span class="date"><%= @order.created_at.localtime.strftime("%B, %d %Y %I:%M %p %Z") %></span>Order Summary: #<%= @order.order_number %></h1>
 

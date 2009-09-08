@@ -6,7 +6,7 @@ class Product < ActiveRecord::Base
   acts_as_paranoid
   
   has_attached_file :photo, :styles => { :catalog => "120x120#", :cart => "64x64#" }, 
-                            :default_style => :catalog, :default_url => "/plugin_assets/green/images/product_image_not_available_:style.gif",
+                            :default_style => :catalog, :default_url => "/images/green/product_image_not_available_:style.gif",
                             :path => ":rails_root/public/assets/product/:attachment/:id/:style_:basename.:extension",
                             :url => "/assets/product/:attachment/:id/:style_:basename.:extension"
   

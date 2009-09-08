@@ -1,13 +1,13 @@
+<%= javascript_include_tag "blue/jquery/jsTree/source/_lib" %>
+<%= javascript_include_tag "blue/jquery/jsTree/source/tree_component" %>
+<%= stylesheet_link_tag "/javascripts/blue/jquery/jsTree/source/tree_component.css" %>
 
-<%= javascript_include_tag('jquery/jsTree/source/_lib')%>
-<%= javascript_include_tag('jquery/jsTree/source/tree_component')%>
-<%= stylesheet_link_tag('/javascripts/jquery/jsTree/source/tree_component.css') %>
-<%= javascript_include_tag('admin/products', :plugin => "green")%>
-<%= javascript_include_tag('admin/categories', :plugin => "green")%>
+<%= javascript_include_tag "green/admin/products" %>
+<%= javascript_include_tag "green/admin/categories" %>
 
-<%= javascript_include_tag "wymeditor/jquery.wymeditor.js", :cache => false, :plugin => "blue" %>
-<%= javascript_include_tag "wymeditor/plugins/blue/jquery.wymeditor.blue.image_dialog.js", :cache => false, :plugin => "blue" %>
-<%= javascript_include_tag "wymeditor/plugins/blue/jquery.wymeditor.blue.link_dialog.js", :cache => false, :plugin => "blue" %>
+<%= javascript_include_tag "blue/wymeditor/jquery.wymeditor.js" %>
+<%= javascript_include_tag "blue/wymeditor/plugins/blue/jquery.wymeditor.blue.image_dialog.js" %>
+<%= javascript_include_tag "blue/wymeditor/plugins/blue/jquery.wymeditor.blue.link_dialog.js" %>
 
 <div id="products">
 	<h2>

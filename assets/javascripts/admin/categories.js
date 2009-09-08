@@ -20,7 +20,7 @@ $(document).ready(function(){
 	$(".tree").tree({
 		cookies: true,
 		ui: {
-			theme_path: "/javascripts/jquery/jsTree/source/themes/",
+			theme_path: "/javascripts/blue/jquery/jsTree/source/themes/",
 			theme_name: "apple",
 			context: [ 
 			            {
