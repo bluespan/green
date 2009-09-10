@@ -39,7 +39,8 @@ class Cart < ActiveRecord::Base
   end
   
   def tax
-    subtotal * SalesTaxRate[billing_address.state].rate / 100
+    return 0.USD if billing_address.nil?
+    subtotal * SalesTaxRate[billing_address.state].rate / 100 
   end
 
   def shipping

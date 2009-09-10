@@ -12,8 +12,10 @@ class Category < ActiveRecord::Base
   named_scope :categories_only, :conditions => ["product_id is ?", nil]
   named_scope :with_parent_id, lambda { |parent_id|  { :conditions => ["parent_id = ?", parent_id] } }
 
-  before_validation :generate_slug!
+  named_scope :with_products, :conditions => ["product_id is not ?", nil], :include => :product
 
+  before_validation :generate_slug!
+  
   def generate_slug!
     return self[:slug] unless self[:slug].blank? && !self[:name].blank?
     
@@ -33,7 +35,14 @@ class Category < ActiveRecord::Base
   end
   
   def url
-    
+    @url ||= self_and_ancestors.collect{|c| c.slug}.join("/")
+  end
+  
+  def products
+    @products ||= children.with_products.collect do |c|
+      c.product.ancestors = self_and_ancestors
+      c.product
+    end
   end
   
   class << self

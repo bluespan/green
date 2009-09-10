@@ -17,7 +17,7 @@ class PageTypes::Cart < Page
   end
   
   def template
-    @template ||= TemplateFile.find('../../cart/index.html.erb')
+    @template ||= TemplateFile.find('/../cart/index.html.erb')
   end
   
   def slug

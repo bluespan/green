@@ -13,7 +13,7 @@ Rails 2.3+
 
 Blue CMS - https://github.com/bluespan/blue/tree/master
 
-script/plugin install git://github.com/danwrong/acts-as-money.git
+script/plugin install git://github.com/braindeaf/acts-as-money.git
 script/plugin install git://github.com/rails/ssl_requirement.git
 script/plugin install git://github.com/bluespan/stateselect.git
 script/plugin install git://github.com/markcatley/responds_to_parent.git

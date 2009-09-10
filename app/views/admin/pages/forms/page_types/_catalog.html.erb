@@ -10,7 +10,11 @@
 	<%= f.text_field :slug, :name => "page[slug]", :id => "page_slug" %>
 
 	<label for="page_template_file">Template</label>
-	<strong>Catalog</strong>
+	<select name="page[template_file]" id="page_template_file">
+		<% PageTypes::Catalog.templates.each do |template| -%>
+		<option value="<%= template.name %>" <%= @page.template_file == template.name ? "selected" : "" %>><%= template.humanize%></option>
+		<% end -%>
+	</select>	
 </fieldset>
 
 <fieldset>

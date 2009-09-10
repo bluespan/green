@@ -13,10 +13,5 @@ class PageTypes::Catalog < Page
   def self.url
     @@url ||= self.instance.url
   end
-  
-  def template
-    @template ||= TemplateFile.find('../../catalog/show.html.erb')
-  end
-  
-  
+    
 end

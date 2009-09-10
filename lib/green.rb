@@ -47,7 +47,8 @@ module Span
           end
         end
         
-        {:template => 'catalog/show'}
+        instructions = {:template => @page.template.path}
+        instructions.merge( respond_to?(:after_load_category) ? after_load_category : {} )
       end
       
       def load_product
@@ -60,7 +61,9 @@ module Span
         @page = PageTypes::Catalog.working.find(:first)
         @product = Product.find_by_slug(params[:slug])
         @page.body_id = "product"
-        {:template => 'catalog/product'}
+        
+        instructions = {:template => 'catalog/product'}
+        instructions.merge( respond_to?(:after_load_product) ? after_load_product : {} )
       end
     end
     

@@ -41,11 +41,11 @@ class Product < ActiveRecord::Base
   
   before_validation :generate_unique_slug!
     
-  attr_accessor :current_configuration  
+  attr_accessor :current_configuration, :ancestors
   class_inheritable_accessor :types
     
   def starting_price
-    base_price
+    base_price ||= 0
   end  
     
   def css_class
@@ -67,7 +67,10 @@ class Product < ActiveRecord::Base
   
   def url
     @url ||= {}
-    @url[current_configuration] ||= "#{categories.first.ancestors.collect{|c| "/#{c.slug}"}}/#{slug}" + current_configuration.to_url
+    
+    configuration_url = current_configuration.nil? ? "" : current_configuration.to_url 
+    
+    @url[current_configuration] ||= "#{ancestors.collect{|c| "/#{c.slug}"}}/#{slug}" + configuration_url
   end
   
   def configuration(option_ids = nil)
@@ -77,9 +80,13 @@ class Product < ActiveRecord::Base
   end
   
   def configuration_price
-    base_price + @current_configuration.sum(0, &:price)
+    (base_price || 0) + current_configuration.sum(0, &:price)
   end
   
+  def ancestors
+    @ancestors ||= categories.first.ancestors
+  end
+
   
   def configuration_photo
     @configuration_photo ||=  @current_configuration.collect { |item| item.photo if item.photo?}.compact.first || photo
@@ -89,6 +96,10 @@ class Product < ActiveRecord::Base
   def configure!(option_ids)
     raise RequiresConfiguration if option_ids.blank? && requires_configuration?
     self.current_configuration = configuration(option_ids)
+  end
+  
+  def current_configuration
+    @current_configuration
   end
   
   def set_option_attachments(attachments)
