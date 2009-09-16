@@ -27,13 +27,18 @@ class Product < ActiveRecord::Base
       def configuration.to_s
         self.collect{ |o| "#{o.attribute.gsub("_", " ").capitalize}: #{o.name}"}.join(", ")
       end
-      
-      def configuration.to_url
-        return "" if size == 0
-        "?#{self.collect{ |o| "configuration[#{o.attribute.downcase}][]=#{o.id}"}.join("&")}"
-      end
+  
       
       return configuration
+    end
+  end
+  
+  has_many :manual_product_configurations do
+    def [](option_ids)
+      option_ids = option_ids.join(",") if option_ids.is_a?(Array)
+      result = self.find_all{ |config| config.option_ids == option_ids}
+      return result.first if result.size > 0
+      nil
     end
   end
        
@@ -73,10 +78,28 @@ class Product < ActiveRecord::Base
     @url[current_configuration] ||= "#{ancestors.collect{|c| "/#{c.slug}"}}/#{slug}" + configuration_url
   end
   
-  def configuration(option_ids = nil)
-    return self.current_configuration if option_ids.nil? && configured?
+  def configuration
+    return self.current_configuration if configured?
+    
     @configuration ||= {}
-    @configuration[option_ids] ||= options.configuration(option_ids)
+    @product = self
+    
+    def @configuration.product=(product)
+      @product = product
+    end
+    
+    @configuration.product = self
+    
+    def @configuration.[](option_ids)
+      unless self.has_key?(option_ids)
+        config = @product.instantiate_configuration(option_ids)
+        config.options = @product.options.configuration(option_ids)
+        self.store(option_ids, config)
+      end
+      self.fetch(option_ids)
+    end
+    
+    @configuration
   end
   
   def configuration_price
@@ -95,7 +118,7 @@ class Product < ActiveRecord::Base
   
   def configure!(option_ids)
     raise RequiresConfiguration if option_ids.blank? && requires_configuration?
-    self.current_configuration = configuration(option_ids)
+    self.current_configuration = configuration[option_ids]
   end
   
   def current_configuration
@@ -118,11 +141,50 @@ class Product < ActiveRecord::Base
     false
   end
 
+  def configurations   
+    @configuration ||= {} 
+    @configuration_keys ||= []
+    configurations_r!(product_attribute_configs) if @configuration_keys.empty?
+    @configuration_keys
+  end
 
-    
-
+  def instantiate_configuration(option_ids)
+    config = manual_product_configurations[option_ids] || ProductConfiguration.new
+    config.product = self
+    config
+  end
   
   class RequiresConfiguration < Exception
+  end
+
+  private
+  
+  def configurations_r!(attributes, config = [])
+    return if attributes.size == 0
+    
+    options.of_attribute(attributes.first[:name]).each do |option|
+      if attributes.size == 1
+        @configuration_keys << (key = (config + [option]).map(&:id))
+        
+        @configuration[key] = instantiate_configuration(key)
+        @configuration[key].options = config + [option]
+      else
+        configurations_r!(attributes.slice(1, attributes.size - 1), config + [option])
+      end
+    end
+    
+  end
+  
+
+end
+
+class ProductConfiguration < ManualProductConfiguration
+  
+  def options=(opts)
+    @options = opts
+    self.price = opts.sum(&:price) + product.base_price
+    self.shipping = opts.sum(&:shipping) + product.base_shipping
+    self.option_ids = opts.map(&:id).join(",")
   end
   
 end

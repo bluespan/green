@@ -113,8 +113,9 @@ body.admin table.cart .price {width:10%;text-align:right;vertical-align:middle;}
 
 #dragged span.tools {display:none;}
 #category_tree {}
-#category_tree ul {background-image:url("/images/green/tree_background.png");padding-bottom:9px;}
-#category_tree li {font-size:12px;}
+#category_tree ul {background-image:url("/images/green/tree_background.png");padding-bottom:9px;position:relative;}
+#category_tree ul ul {background-image:url("/javascripts/blue/jquery/jsTree/source/themes/default/dot.gif");height:auto;}
+#category_tree li {font-size:12px;clear:both;}
 #category_tree li a.product,
 #category_tree li.product a,
 #category_tree li.new_product a{background-image:url("/images/blue/page_16.png");background-position:4px 1px;background-repeat:no-repeat;}
@@ -138,7 +139,7 @@ body.admin  .dialog .errorExplanation {-moz-border-radius:6px 0 0 0 ;-webkit-bor
 body.admin  .dialog .errorExplanation h2 {-moz-border-radius:6px 0 0 0 ;-webkit-border-top-left-radius: 6px;border-radius:6px 0 0 0 ;}
 
 .dialog .content {padding:10px 10px 0;}
-body.admin_green .dialog .loading {background:url("/imges/green/ajax-loader.gif") no-repeat center center #fff;width:100%;height:100%;}
+body.admin_green .dialog .loading {background:url("/images/green/ajax-loader.gif") no-repeat center center #fff;width:100%;height:100%;}
 body.admin_green  .trayDialog .loading {background:url("/images/green/ajax-loader.gif") no-repeat center center #fff;width:100%;height:350px;}
 
 
@@ -190,23 +191,28 @@ body.admin_green .modalContainer #attributes li .tools {float:right;font-size:11
 body.admin_green .modalContainer #attributes li .tools a {color:#2B3B19;font-weight:normal;}
 body.admin_green .modalContainer #attributes li.active {background:#B5E782;}
 
+body.admin_green .modalContainer #attributes #configurations {margin-top:20px;}
+body.admin_green .modalContainer #attributes #configurations li {font-size:11px;text-transform:uppercase;}
+body.admin_green .modalContainer #attributes #configurations li .tools {text-transform:none;}
 body.admin_green .modalContainer .trayDialog .ui-accordion-header {color:#2B3B19;}
 body.admin_green .modalContainer .trayDialog label,
 body.admin_green .modalContainer .trayDialog input {float:none;}
 body.admin_green .modalContainer .trayDialog input.text,
-body.admin_green .modalContainer .trayDialog textarea {padding:3px;border:1px solid #2B3B19;font-size:14px;color:#fff;background:#819F63;width:224px;}
+body.admin_green .modalContainer .trayDialog textarea {padding:2px;border:1px solid #2B3B19;font-size:10px;color:#fff;background:#819F63;width:224px;}
 
 
 body.admin_green .modalContainer .trayDialog .ui-state-active,
 body.admin_green .modalContainer .trayDialog .ui-accordion-content-active {background:#B5E782;}
-
+body.admin_green .modalContainer .trayDialog .ui-accordion-content-active {padding:0 2.2em;}
 body.admin_green .modalContainer .trayDialog h3 .price,
 body.admin_green .modalContainer .trayDialog h3 .part_number{float:right;padding:0 0 0 6px;}
 body.admin_green .modalContainer .trayDialog fieldset {padding:0;margin:0;border-width:0;}
-body.admin_green .modalContainer .trayDialog .single_line {clear:both;margin-bottom:10px;overflow:hidden;}
-body.admin_green .modalContainer .trayDialog .single_line label {float:left;width:125px;}
+body.admin_green .modalContainer .trayDialog .single_line {clear:both;margin-bottom:6px;overflow:hidden;}
+body.admin_green .modalContainer .trayDialog .single_line label {float:left;width:125px;font-size:11px;}
 body.admin_green .modalContainer .trayDialog .single_line input {float:left;margin:0;}
 body.admin_green .modalContainer .trayDialog .single_line textarea {float:left;}
+body.admin_green .modalContainer .trayDialog .single_line input.checkbox,
+body.admin_green .modalContainer .trayDialog .single_line input.radio {width:auto;clear:none;margin-top:6px;}
 body.admin_green .modalContainer .trayDialog #new_option_name {font-size:12px;margin-right:10px;}
 
 body.admin_green .modalContainer .trayDialog input.unfocused {color:#2B3B19;}
@@ -215,6 +221,19 @@ body.admin_green .modalContainer .trayDialog a.cancel {font-size:12px;color:#2B3
 body.admin_green .modalContainer p {font-size:12px;line-height:130%;margin-bottom:10px;color:#2B3B19;}
 body.admin_green .modalContainer .trayDialog .buttons {bottom:0;left:0;width:100%;height:40px;margin-top:10px;}
 
+body.admin_green .modalContainer .trayDialog #configurations table {width:100%;font-size:11px;}
+body.admin_green .modalContainer .trayDialog #configurations thead td {font-weight:bold;vertical-align:bottom;}
+body.admin_green .modalContainer .trayDialog #configurations tbody td {vertical-align:middle;}
+body.admin_green .modalContainer .trayDialog #configurations td {padding: 2px 5px;}
+body.admin_green .modalContainer .trayDialog #configurations tr.alt td {background:#E8F7D9;}
+body.admin_green .modalContainer .trayDialog #configurations td.price {width:50px;}
+body.admin_green .modalContainer .trayDialog #configurations tr td input {margin-bottom:0;}
+body.admin_green .modalContainer .trayDialog #configurations tr.alt td input.text {background:#E8F7D9;}
+body.admin_green .modalContainer .trayDialog #configurations td.price input.text {background:#fff;color:#819F63;width:50px;text-align:right;border:1px dashed #819F63;}
+body.admin_green .modalContainer .trayDialog #configurations td.price input.checkbox {display:none;}
+body.admin_green .modalContainer .trayDialog #configurations td.price input.manual {color:#000;border-color:#000;border-style:solid;}
+body.admin_green .modalContainer .trayDialog #configurations td.checkbox {width:20px;text-align:center;}
+body.admin_green .modalContainer .trayDialog #configurations td input.checkbox{width:auto;}
 body.admin_green #slide_panel {background:#819F63;border-top:5px solid #2B3B19;}
 body.admin_green #slide_panel a {color:#2B3B19;}
 

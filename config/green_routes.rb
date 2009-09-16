@@ -10,7 +10,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.connect 'products/:product_id/attributes/:attribute_name', :controller => 'attributes', :action => 'show'
     admin.connect 'products/:product_id/attributes/:attribute_name/options/:action.:format', :controller => 'options'
     admin.connect 'products/:product_id/attributes/:attribute_name/options/:action', :controller => 'options'
-    admin.resources :products
+    admin.resources :products do |products|
+      products.resource :configurations
+    end
     admin.resources :categories, :collection => { :move => :put }
     admin.resources :orders do |orders|
       orders.resources :notifications, :controller => "orders/notifications"

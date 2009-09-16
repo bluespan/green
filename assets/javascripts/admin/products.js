@@ -346,7 +346,49 @@ GreenProductAttributeDialog.prototype.open = function(path) {
 					return false;
 				});
 				
-				tray_dialog.find("#options .cancel").click(function() {
+				tray_dialog.find("#configurations td.price .text").focus(function(){
+					$(this).select();
+				});
+				
+				tray_dialog.find("#configurations input:checked").each(function(){
+					checkbox = $(this);
+					textbox = $("#" + checkbox.attr("id").replace("_manual", ""));
+					if (textbox) textbox.addClass("manual");
+				});
+				
+				tray_dialog.find("#configurations td.price .text").keyup(function(){
+					field = $(this);
+					manual_checkbox = $("#" + field.attr("id") + "_manual");
+					
+					if (field.val() == "") {
+						field.removeClass("manual");
+						if (document.selection) document.selection.empty();
+						if (window.getSelection) window.getSelection().removeAllRanges();
+						field.val($("#" + field.attr("id") + "_computed").val());
+						manual_checkbox.removeAttr("checked");
+					} else {
+						field.addClass("manual");
+						manual_checkbox.attr("checked", "true")
+						val = field.val();
+						field.val(val.replace(/[^0-9\.]/, ""));
+					}
+				});
+				tray_dialog.find("#configurations td.price .text").blur(function(){
+					val = new Number($(this).val());
+					$(this).val(val.toFixed(2));
+				});
+				
+				
+				tray_dialog.find("#configurations").submit(function(){
+					$(this).attr("action", $(this).attr("action") + ".js")
+					$(this).attr("target", "ajaxupload");
+					
+					$("#ajaxupload").one("load", function() {
+						jQuery("#attributes .edit").parents("li").removeClass("active")
+					});
+				});
+				
+				tray_dialog.find(".cancel").click(function() {
 					current_dialog.closeRightTray();
 					jQuery("#attributes .edit").parents("li").removeClass("active")
 				});

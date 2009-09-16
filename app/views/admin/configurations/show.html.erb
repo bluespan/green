@@ -1,0 +1,40 @@
+<h1>Configurations</h1>
+
+<form  id="configurations" action="/admin/products/<%= @product.id %>/configurations" method="post">
+	<input type="hidden" class="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
+	<input type="hidden" name="_method" value="put">
+	<table>
+		<thead>
+			<tr>
+				<td>Part Number</td>
+				<td class="price">Price</td>
+				<td class="price">Shipping</td>
+				<td class="checkbox">Not Available</td>
+			</tr>
+		</thead>
+		<tbody>
+			<% @product.configurations.each do |option_ids|
+				config = @product.configuration[option_ids] %>
+			<tr <%= cycle "class='alt'", "" %> >
+				<td><%= config.options.map(&:part_number).join("") %></td>
+				<td class="price">
+					<input class="checkbox" type="checkbox" id="configuration_<%= option_ids.join("_") %>_price_manual" name="configuration[<%= option_ids.join(",") %>][price_manual]" value="1" <%= config.price_manual? ? "checked='checked'" : "" %>/>
+					<input class="text" type="text" id="configuration_<%= option_ids.join("_") %>_price" name="configuration[<%= option_ids.join(",") %>][price]" value="<%= (config.price) %>"/>
+					<input type="hidden" id="configuration_<%= option_ids.join("_") %>_price_computed" value="<%= (config.original_price) %>"/>
+				</td>
+				<td class="price">
+					<input class="checkbox" type="checkbox" id="configuration_<%= option_ids.join("_") %>_shipping_manual" name="configuration[<%= option_ids.join(",") %>][shipping_manual]" value="1" <%= config.shipping_manual? ? "checked='checked'" : "" %>/>
+					<input class="text" type="text" id="configuration_<%= option_ids.join("_") %>_shipping" name="configuration[<%= option_ids.join(",") %>][shipping]" value="<%= (config.shipping) %>"/>
+					<input type="hidden" id="configuration_<%= option_ids.join("_") %>_shipping_computed" value="<%= (config.original_shipping) %>"/>
+				</td>
+				<td class="checkbox"><input class="checkbox" type="checkbox" id="configuration_<%= option_ids.join("_") %>_not_available" name="configuration[<%= option_ids.join(",") %>][not_available]" value="1"  <%= config.not_available? ? "checked" : "" %> />
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+	<div class="buttons">
+		<input type="submit" value="Save Configurations" name="save" class="button" /> | <a href="#" class="cancel">Cancel</a>
+	</div>
+
+</form>

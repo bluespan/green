@@ -35,6 +35,10 @@ class LineItem < ActiveRecord::Base
     price * quantity
   end
   
+  def part_number
+    product.configuration.part_number
+  end
+  
   def product
     @product ||= begin
       p = self.orginal_product
@@ -45,7 +49,7 @@ class LineItem < ActiveRecord::Base
   end
   
   def url
-    @url ||= product.url + (product.configuration.empty? ? "?" : "&") + "line_item=#{id}"
+    @url ||= product.url
   end
   
 end

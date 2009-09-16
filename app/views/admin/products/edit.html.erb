@@ -17,8 +17,15 @@
 			<% end %>
 		</ul>
 
+		<% if @product.product_attribute_configs.length > 1 %>
+		<ul id="configurations">
+			<li><span class="tools"><a href="products/<%= @product.id %>/configurations" class="edit">Edit</a></span>Configurations</li>
+		</ul>
+		<% end %>
 	</fieldset>
 </div>
+
+
 <% end %>
 
 <div class="buttons">
