@@ -49,7 +49,7 @@ class LineItem < ActiveRecord::Base
   end
   
   def url
-    @url ||= product.url
+    @url ||= product.configuration.url
   end
   
 end

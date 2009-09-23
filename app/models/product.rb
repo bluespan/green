@@ -73,7 +73,7 @@ class Product < ActiveRecord::Base
   def url
     @url ||= {}
     
-    configuration_url = current_configuration.nil? ? "" : current_configuration.to_url 
+    configuration_url = current_configuration.nil? ? "" : current_configuration.configuration_url 
     
     @url[current_configuration] ||= "#{ancestors.collect{|c| "/#{c.slug}"}}/#{slug}" + configuration_url
   end
@@ -90,7 +90,7 @@ class Product < ActiveRecord::Base
     
     @configuration.product = self
     
-    def @configuration.[](option_ids)
+    def @configuration.[](option_ids = "")
       unless self.has_key?(option_ids)
         config = @product.instantiate_configuration(option_ids)
         config.options = @product.options.configuration(option_ids)
@@ -103,7 +103,7 @@ class Product < ActiveRecord::Base
   end
   
   def configuration_price
-    (base_price || 0) + current_configuration.sum(0, &:price)
+    #(base_price || 0) + current_configuration.sum(0, &:price)
   end
   
   def ancestors
@@ -112,7 +112,7 @@ class Product < ActiveRecord::Base
 
   
   def configuration_photo
-    @configuration_photo ||=  @current_configuration.collect { |item| item.photo if item.photo?}.compact.first || photo
+    #@configuration_photo ||=  @current_configuration.collect { |item| item.photo if item.photo?}.compact.first || photo
   end
   
   
@@ -145,6 +145,7 @@ class Product < ActiveRecord::Base
     @configuration ||= {} 
     @configuration_keys ||= []
     configurations_r!(product_attribute_configs) if @configuration_keys.empty?
+
     @configuration_keys
   end
 
@@ -182,8 +183,15 @@ class ProductConfiguration < ManualProductConfiguration
   
   def options=(opts)
     @options = opts
-    self.price = opts.sum(&:price) + product.base_price
-    self.shipping = opts.sum(&:shipping) + product.base_shipping
+    
+    if opts.empty?
+      self.price = product.base_price
+      self.shipping = product.base_shipping
+    else
+      self.price = opts.sum(&:price) + product.base_price
+      self.shipping = opts.sum(&:shipping) + product.base_shipping
+    end
+    
     self.option_ids = opts.map(&:id).join(",")
   end
   

@@ -19,7 +19,7 @@ class ManualProductConfiguration < ActiveRecord::Base
   end
   
   def original_price
-    options.sum(&:price) + product.base_price
+    (options.size > 0 ? options.sum(&:price) : 0.USD) + product.base_price
   end
   
   def shipping
@@ -27,15 +27,18 @@ class ManualProductConfiguration < ActiveRecord::Base
   end
   
   def original_shipping
-    options.sum(&:shipping) + product.base_shipping
+    (options.size > 0 ? options.sum(&:shipping) : 0.USD) + product.base_shipping
   end
-  
   
   def part_number
     product.base_part_number + options.map(&:part_number).join("")
   end
   
-  def to_url
+  def url
+    @url ||= "#{product.ancestors.collect{|c| "/#{c.slug}"}}/#{product.slug}" + configuration_url
+  end
+  
+  def configuration_url
     return "" if options.size == 0
     "?#{options.collect{ |o| "configuration[#{o.attribute.downcase}][]=#{o.id}"}.join("&")}"
   end

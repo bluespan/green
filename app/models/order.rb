@@ -23,6 +23,9 @@ class Order < ActiveRecord::Base
   validates_presence_of :credit_card_type, :credit_card_number, :credit_card_month, :credit_card_year, :if => :require_credit_card_validation? 
   validates_presence_of :cart, :on => :create, :message => "needed" 
 
+  validates_presence_of :billing_address, :on => :create, :message => "needed"
+  validates_presence_of :shipping_address, :on => :create, :message => "needed"
+
   before_create :generate_order_number
   before_create :authorize
   before_create :hide_credit_card_number
@@ -47,7 +50,7 @@ class Order < ActiveRecord::Base
       transactions << self.last_transaction
       return true
     else
-      errors.add("", self.last_transaction.message)
+      errors.add(" ", self.last_transaction.message)
     end
     
     return false

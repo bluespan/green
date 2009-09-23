@@ -43,14 +43,15 @@
 			<td class="product_image"><%= image_tag item.product.photo(:cart) %></td>
 			<td class="product">
 				<div>
-					<h2><%= item.product.name %></h2>
+					<h2><%= item.product.configuration.part_number.blank? ? item.product.name : item.product.configuration.part_number %></h2>
+			
 					
-					<% unless item.product.configuration.empty? %>
+					<% unless item.product.configuration.options.empty? %>
 					<dl>
 						<% item.product.product_attributes_with_options.each do |attribute| %>
 						<dt><%= attribute.display_name %>:</dt> 
 						<dd>
-						<% item.product.configuration[attribute.name].each do |option| %>
+						<% item.product.configuration.options[attribute.name].each do |option| %>
 							<%= option.name %>
 							
 								<% if option.attachments.size > 0 %>

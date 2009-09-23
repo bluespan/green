@@ -4,6 +4,10 @@ class OrdersController < CheckoutController
   filter_parameter_logging :credit_card_number, :credit_card_cvv2, :credit_card_month, :credit_card_year, :credit_card_type
   before_filter :validate_cart_not_empty, :load_checkout_logic, :only => :create
   
+  def index
+    redirect_to "/"
+  end
+  
   def show
     @order = Order.find(:first, :conditions => ["order_number = ?", params[:id]])
     render :template => "orders/not_found" if @order.nil?
@@ -12,6 +16,8 @@ class OrdersController < CheckoutController
   def create
     @order ||= Order.new(params[:order])
     @order.cart = @cart
+    return false unless @order.valid?
+    
     @order.transaction_params ||= {:ip => request.remote_ip }
     if @order.save
       unintialize_cart

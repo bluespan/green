@@ -9,7 +9,7 @@ class PageTypes::Order < Page
   end
   
   def template
-    @template ||= TemplateFile.find('../../orders/show.html.erb')
+    @template ||= TemplateFile.find('/../orders/show.html.erb')
   end
   
   def slug

@@ -55,9 +55,9 @@ class Cart < ActiveRecord::Base
   
   def create_new_item(product_id, options = {}, attachments = {})
     product = Product.find(product_id)
-    product.configure!(options[:configuration])
+    configuration = product.configuration[options[:configuration]]
     
-    item = line_items.create( options.reverse_merge!(:price => product.configuration.price) )
+    item = line_items.create( options.reverse_merge!(:price => configuration.price) )
     item.add_attachments(attachments) unless attachments.empty?
     update_caches!
     return item

@@ -1,4 +1,5 @@
 class CartController < GreenController
+  
   unloadable
   
   helper :pages
@@ -11,6 +12,9 @@ class CartController < GreenController
   
   def create
     configuration = params[:product][:configuration].to_a.collect{ |attribute, option| option }.join(",")
+    # Sort Configuration Options by Attribute
+    configuration = Product.find(params[:product][:id]).options.configuration(configuration).collect{|option| option.id }.join(",")
+    
     item = @cart.add(params[:product][:id], { :configuration => configuration }, params[:product][:attachments] )
 
     flash_msg = "A #{item.product.name} <span class='description'>#{item.product.configuration}</span> has been added to the cart."
@@ -54,7 +58,7 @@ class CartController < GreenController
       wants.js
     end
   end
-  
+
 private
   include Span::Blue::Routing
 
