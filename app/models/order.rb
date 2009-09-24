@@ -50,7 +50,7 @@ class Order < ActiveRecord::Base
       transactions << self.last_transaction
       return true
     else
-      errors.add(" ", self.last_transaction.message)
+      errors.add("Credit Card -", self.last_transaction.message)
     end
     
     return false
