@@ -19,4 +19,22 @@ module GreenHelper
       html << "</ul>"
     end
   end  
+  
+  def product_content(key, options = {}, &default_block)
+    options = {:product => @product}.merge(options)
+
+    key = key.to_s
+    default_content = block_given? ? capture(&default_block) : nil
+    
+    content_obj = options[:product].content[key]
+    content_obj.content = default_content if content_obj.new_record?
+    
+    content = content_obj.content
+    
+    if options[:edit]
+      content = "<textarea name='content[#{verbiage.id}][content]'>#{content}</textarea>"
+    end
+    
+    concat content
+  end
 end

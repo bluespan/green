@@ -10,6 +10,8 @@ class Product < ActiveRecord::Base
                             :path => ":rails_root/public/assets/product/:attachment/:id/:style_:basename.:extension",
                             :url => "/assets/product/:attachment/:id/:style_:basename.:extension"
   
+  acts_as_contentable
+  
   has_many :options, :order => :position do
     def of_attribute(attribute)
       find :all, :conditions => ["attribute = ?", attribute.to_s]
