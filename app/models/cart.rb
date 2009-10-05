@@ -3,6 +3,7 @@ class Cart < ActiveRecord::Base
   
   has_many :line_items
   acts_as_money :subtotal, :currency => "USD", :amount => :subtotal_in_cents
+  acts_as_money :shipping, :currency => "USD", :amount => :shipping_in_cents
   belongs_to :billing_address, :class_name => "Address", :foreign_key => "billing_id"
   belongs_to :shipping_address, :class_name => "Address", :foreign_key => "shipping_id"
   
@@ -30,6 +31,7 @@ class Cart < ActiveRecord::Base
   def update_caches!
     self.quantity = line_items.collect(&:quantity).sum
     self.subtotal_in_cents = line_items.collect(&:subtotal).sum
+    self.shipping_in_cents = line_items.collect(&:shipping_total).sum
     save!
   end
   
@@ -42,10 +44,6 @@ class Cart < ActiveRecord::Base
     return 0.USD if billing_address.nil?
     subtotal * SalesTaxRate[billing_address.state].rate / 100 
   end
-
-  def shipping
-    0.USD
-  end
   
   def total
     subtotal + tax + shipping
@@ -57,7 +55,7 @@ class Cart < ActiveRecord::Base
     product = Product.find(product_id)
     configuration = product.configuration[options[:configuration]]
     
-    item = line_items.create( options.reverse_merge!(:price => configuration.price) )
+    item = line_items.create( options.reverse_merge!(:price => configuration.price, :shipping => configuration.shipping) )
     item.add_attachments(attachments) unless attachments.empty?
     update_caches!
     return item

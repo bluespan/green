@@ -13,6 +13,7 @@ class LineItem < ActiveRecord::Base
   alias_method :orginal_product, :product
     
   acts_as_money :price, :currency => "USD", :amount => :price_in_cents
+  acts_as_money :shipping, :currency => "USD", :amount => :shipping_in_cents
   
   def add_attachments(attachments)
     attachments.each do |option_id, attachment|
@@ -33,6 +34,10 @@ class LineItem < ActiveRecord::Base
   
   def subtotal
     price * quantity
+  end
+  
+  def shipping_total
+    shipping * quantity
   end
   
   def part_number
