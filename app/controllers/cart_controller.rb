@@ -8,7 +8,6 @@ class CartController < GreenController
   def index
     @page = PageTypes::Cart.instance
     
-    
     respond_to do |wants|
       wants.html { render route }
       wants.json { render :json => @cart.to_json(:methods => [:tax, :total, :subtotal, :shipping]), :layout => false }
