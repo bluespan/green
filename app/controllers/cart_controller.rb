@@ -11,7 +11,7 @@ class CartController < GreenController
     
     respond_to do |wants|
       wants.html { render route }
-      wants.js { render :json => @cart.to_json(:methods => [:tax, :total, :subtotal, :shipping]) }
+      wants.js { render :text => @cart.to_json(:methods => [:tax, :total, :subtotal, :shipping]), :layout => false }
     end
   end
   
